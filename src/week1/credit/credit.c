@@ -25,7 +25,7 @@ int main(void){
 
     printf("You typed in: %d\n",number);
 
-    get_answer(number,length,answer);
+    get_answer();
     judge(); 
 
     printf("length: %d\n",length);

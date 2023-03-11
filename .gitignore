@@ -1,0 +1,3 @@
+out/
+libcs50/**
+!libcs50/src/**
