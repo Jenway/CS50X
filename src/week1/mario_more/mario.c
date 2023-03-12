@@ -1,3 +1,4 @@
+#include "../../../lib/cs50.h"
 #include <stdio.h>
 
 int main(void) 
@@ -5,11 +6,10 @@ int main(void)
     int height;
     do
     {
-        printf("Height:");
-        scanf("%d", &height);
+        height = get_int("Height: ");
     }
     while (height < 1 || height > 8);
-    printf("%d\n",height);
+    
     for (int i = 0; i < height; i++)
     {
         for (int j = height - i ; j > 1; j--)

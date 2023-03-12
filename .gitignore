@@ -1,3 +1,6 @@
-out/
-libcs50/**
-!libcs50/src/**
+lib/
+CS50X_TOKEN.md
+.vscode/
+
+!lib/libcs50/src/cs50.c
+!lib/libcs50/src/cs50.h
