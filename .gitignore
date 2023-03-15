@@ -2,5 +2,7 @@ lib/
 CS50X_TOKEN.md
 .vscode/
 
+/**/*.exe
+
 !lib/libcs50/src/cs50.c
 !lib/libcs50/src/cs50.h

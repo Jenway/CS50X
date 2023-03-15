@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-// #include <cs50.c>
+// #include "../../../lib/cs50.h"
 
 int get_value(char *input,int value);
 

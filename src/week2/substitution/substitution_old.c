@@ -1,22 +1,23 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
-# define MAX 26
+#define MAX 26
 
 int len(char *list);
 
-int main (int argc,char *argv[MAX]){
+int main(int argc, char *argv[MAX])
+{
 
-    char plain[MAX];    
-    char *std_list= argv[1];
+    char plain[MAX];
+    char *std_list = argv[1];
     // printf("std_list = %s\n",std_list);
-    // printf("i= %d\n",sizeof(std_list));   
+    // printf("i= %d\n",sizeof(std_list));
     int exist[26] = {0};
     if (argc < 2)
     {
-    printf("Usage: ./substitution key\n");
-    return 1;
+        printf("Usage: ./substitution key\n");
+        return 1;
     }
     if (len(argv[1]) != 26)
     {
@@ -36,14 +37,11 @@ int main (int argc,char *argv[MAX]){
         }
     }
 
-
-    
-    // while(argc)       
+    // while(argc)
     // printf("%s\n",argv[--argc]);
 
     printf("Plaintext:");
-    scanf("%s",&plain);
-
+    scanf("%s", plain);
 
     for (int i = 0; i < len(plain); i++)
     {
@@ -62,24 +60,26 @@ int main (int argc,char *argv[MAX]){
             // printf("stdlist_I = %c\n",std_list[j - 'A']);
             plain[i] = toupper(std_list[j - 'A']);
         }
-        else{continue;}
-            
+        else
+        {
+            continue;
+        }
     }
-    printf("Aftertext:%s\n",plain);
-    
+    printf("Aftertext:%s\n", plain);
+
     return 0;
-    
 }
 
-int len(char *list){
+int len(char *list)
+{
     int length = 0;
     while (list[length] != '\0')
     {
         // printf("char = %c\n",list[length] );
         // printf("l = %d\n",length);
-        length ++;
+        length++;
     }
-       
+
     // printf("l = %d\n",length);
     return length;
 }
