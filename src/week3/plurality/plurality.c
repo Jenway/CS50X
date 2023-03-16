@@ -1,4 +1,4 @@
-#include "../../../lib/cs50.h"
+#include <cs50.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -82,9 +82,9 @@ void print_winner(void)
 {
     // TODO
     int max = 0;
-    for (size_t i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        max = candidates[i].votes > candidates[0].votes ? i : max;
+        max = candidates[i].votes > candidates[max].votes ? i : max;
     }
     for (int i = 0; i < candidate_count; i++)
     {

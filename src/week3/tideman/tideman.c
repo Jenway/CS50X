@@ -1,4 +1,4 @@
-#include "../../../lib/cs50.h"
+#include <cs50.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -30,7 +30,7 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
-bool able_locked(int spot_a, int spot_b);
+bool has_cycle(int spot_a, int spot_b);
 void lock_pairs(void);
 void print_winner(void);
 
@@ -101,7 +101,7 @@ int main(int argc, string argv[])
 bool vote(int rank, string name, int ranks[])
 {
     // TODO
-    for (size_t i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
         if (strcmp(name, candidates[i]) == 0)
         {
@@ -117,11 +117,18 @@ bool vote(int rank, string name, int ranks[])
 void record_preferences(int ranks[])
 {
     // TODO
-    for (size_t i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        for (size_t j = i + 1; j < candidate_count; j++)
+        for (int j = i + 1; j < candidate_count; j++)
         {
-            preferences[ranks[i]][ranks[j]] += 1;
+            if (ranks[i] == ranks[j])
+            {
+                preferences[ranks[i]][ranks[j]] = 0;
+            }
+            else
+            {
+                preferences[ranks[i]][ranks[j]] += 1;
+            }
         }
     }
 
@@ -133,21 +140,22 @@ void add_pairs(void)
 
 {
 
-    for (size_t i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        for (size_t j = i + 1; j < candidate_count; j++)
+        for (int j = i + 1; j < candidate_count; j++)
         {
             if (preferences[i][j] - preferences[j][i] > 0)
             {
                 pairs[pair_count].winner = i;
                 pairs[pair_count].loser = j;
+                pair_count++;
             }
-            else
+            else if (preferences[i][j] - preferences[j][i] < 0)
             {
                 pairs[pair_count].winner = j;
                 pairs[pair_count].loser = i;
+                pair_count++;
             }
-            pair_count++;
         }
     }
     return;
@@ -157,20 +165,27 @@ void add_pairs(void)
 void sort_pairs(void)
 {
     // TODO
+    int strength[pair_count];
+    for (int i = 0; i < pair_count; i++)
+    {
+        strength[i] = preferences[pairs[i].winner][pairs[i].loser] - preferences[pairs[i].loser][pairs[i].winner];
+    }
+
     pair temp;
-    for (size_t i = 0; i < pair_count; i++)
+    int tmp_index;
+    for (int i = 0; i < pair_count; i++)
     {
         int max = i;
-        for (size_t j = i + 1; j < pair_count; j++)
+        for (int j = i + 1; j < pair_count; j++)
         {
-            if (preferences[pairs[j].winner][pairs[j].loser] > preferences[pairs[max].winner][pairs[max].loser])
+            if (strength[j] > strength[max])
             {
                 max = j;
             }
-            temp = pairs[i];
-            pairs[i] = pairs[max];
-            pairs[max] = temp;
         }
+        temp = pairs[i];
+        pairs[i] = pairs[max];
+        pairs[max] = temp;
     }
 
     return;
@@ -180,24 +195,29 @@ void sort_pairs(void)
 // The cor problem is Whether a directed graph of an adjacency matrix has a ring?
 
 // check if a->b can be locked
-bool able_locked(int spot_a, int spot_b)
+bool has_cycle(int spot_a, int spot_b)
 {
+    if (spot_a == spot_b)
+    {
+        return true;
+    }
 
     for (int i = 0; i < candidate_count; i++)
     {
 
-        // if there's other point point at a
-        if (locked[i][spot_a])
+        // for spot that a pointed at
+        if (locked[spot_a][i])
         {
-            // then b should not be able to point at it
-            if (!able_locked(spot_b, i))
+            // if it has cycle linked to spot b ,then it will sycle
+            if (has_cycle(i, spot_b))
             {
-                return false;
+                return true;
             }
         }
     }
 
-    return true;
+    return false;
+    ;
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
@@ -206,7 +226,7 @@ void lock_pairs(void)
     // TODO
     for (int i = 0; i < pair_count; i++)
     {
-        if (able_locked(pairs[i].winner, pairs[i].loser))
+        if (!has_cycle(pairs[i].loser, pairs[i].winner))
         {
 
             locked[pairs[i].winner][pairs[i].loser] = true;

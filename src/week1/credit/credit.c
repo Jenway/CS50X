@@ -1,4 +1,5 @@
 #include "..\..\..\lib\cs50.h"
+// #include <cs50.h>
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -16,7 +17,7 @@ int main(void)
     {
 
         temp = isEvenPlace ? (num % 10) * 2 : num % 10;
-        sum += temp > 10 ? temp / 10 + temp % 10 : temp;
+        sum += temp >= 10 ? temp / 10 + temp % 10 : temp;
         isEvenPlace = !isEvenPlace;
         num /= 10;
         if (num >= 10 && num < 100)

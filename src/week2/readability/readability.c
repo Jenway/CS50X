@@ -1,4 +1,4 @@
-#include "../../../lib/cs50.h"
+#include <cs50.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -18,15 +18,15 @@ int main(void)
     int ans = round(index);
     if (ans < 1)
     {
-        printf("Before Grade 1");
+        printf("Before Grade 1\n");
     }
     else if (ans >= 16)
     {
-        printf("Grade 16+");
+        printf("Grade 16+\n");
     }
     else
     {
-        printf("Grade %d", ans);
+        printf("Grade %d\n", ans);
     }
 }
 

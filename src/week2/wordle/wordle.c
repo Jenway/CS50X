@@ -1,4 +1,4 @@
-#include "../../../lib/cs50.h"
+#include <cs50.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -28,7 +28,7 @@ int main(int argc, string argv[])
 {
     // ensure proper usage
     // DONE #1
-    if (argc < 2)
+    if (argc != 2)
     {
         printf("Usage: ./wordle wordsize\n");
         return 1;
