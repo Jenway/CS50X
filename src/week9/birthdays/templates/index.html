@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+            rel="stylesheet"
+        />
+        <link href="/static/styles.css" rel="stylesheet" />
+        <title>Birthdays</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Birthdays</h1>
+        </div>
+        <div class="container">
+            <div class="section">
+                <h2>Add a Birthday</h2>
+                <h3 class="submit_res">{{result}}</h3>
+                <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+                <form action="/" method="post">
+                    <input
+                        name="name"
+                        autofocus="on"
+                        autocomplete="off"
+                        type="text"
+                        placeholder="Name"
+                    />
+                    <input
+                        name="month"
+                        autofocus="on"
+                        autocomplete="off"
+                        type="text"
+                        placeholder="Month"
+                    />
+                    <input
+                        name="day"
+                        autofocus="on"
+                        autocomplete="off"
+                        type="text"
+                        placeholder="Day"
+                    />
+                    <button id="submit">Submit</button>
+                </form>
+            </div>
+
+            <div class="section">
+                <h2>All Birthdays</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Birthday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TODO: Loop through the database entries to display them in this table -->
+                        {% for item in birthdays %}
+                        <tr>
+                            <td>{{ item["name"] }}</td>
+                            <td>{{ item["month"] }}/{{ item["day"] }}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input name ="del_id" type ="hidden" value="
+                                    {{ item.id }} ">
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
