@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} {% block title %} Register {% endblock %} {% block
+main %}
+<form action="/register" method="post">
+    <div class="mb-3">
+        <input
+            autocomplete="off"
+            autofocus
+            class="form-control mx-auto w-auto"
+            id="username"
+            name="username"
+            placeholder="Username"
+            type="text"
+            maxlength="20"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <input
+            onkeyup="judge()"
+            class="form-control mx-auto w-auto"
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+            maxlength="20"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <input
+            onkeyup="judge()"
+            class="form-control mx-auto w-auto"
+            id="confirmation"
+            name="confirmation"
+            placeholder="Confirm Password"
+            type="password"
+            maxlength="20"
+            required
+        />
+    </div>
+    <div id="register-item"></div>
+    <button class="btn btn-primary" type="submit">Register</button>
+
+    <script>
+        function judge() {
+            let button = document.getElementById("submit");
+            let password = document.getElementById("password").value;
+            let confirmation = document.getElementById("confirmation").value;
+            let message = document.getElementById("register-item");
+
+            if (password != confirmation) {
+                message.className = "alert alert-danger";
+                message.innerHTML = "Not match !";
+                button.disabled = false;
+            } else {
+                message.className = "alert alert-success";
+                message.innerHTML = "Match !";
+                button.disabled = true;
+            }
+        }
+    </script>
+</form>
+{% endblock %}
