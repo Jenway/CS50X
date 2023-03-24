@@ -8,7 +8,7 @@
 - [x] Week5
 - [x] Week6
 - [x] Week7
-- [ ] Week8
-- [ ] Week9
+- [x] Week8
+- [x] Week9
 - [ ] Final Project
 
